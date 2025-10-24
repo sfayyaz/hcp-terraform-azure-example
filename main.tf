@@ -8,6 +8,14 @@ locals {
     Environment = var.environment
     Owner = var.prefix
   }
+locals {
+  base_name = "${var.prefix}hcp-vcs-${var.environment}"
+  common_tags = {
+    Environment = var.environment
+    Owner       = var.prefix
+    Project     = "8675309"
+  }
+}
 }
 
 resource "azurerm_resource_group" "web" {
@@ -25,12 +33,4 @@ resource "azurerm_virtual_network" "web" {
   address_space = [var.address_space]
   
   tags = local.common_tags
-locals {
-  base_name = "${var.prefix}hcp-vcs-${var.environment}"
-  common_tags = {
-    Environment = var.environment
-    Owner       = var.prefix
-    Project     = "8675309"
-  }
-}
 }
